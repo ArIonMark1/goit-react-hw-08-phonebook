@@ -9,30 +9,31 @@ import { createContacts } from 'redux/contacts/operations';
 export default function ContactForm() {
   //   //форма додавання контакту
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
 
   const dispatch = useDispatch();
   const listContacts = useSelector(selectContacts);
   const formReset = () => {
     setName('');
-    setPhone('');
+    setNumber('');
   };
+
   function formSubmit(evt) {
     /* відправка даних контакту при сабміті, перевірка на співпадіння та пусте ім'я  */
     evt.preventDefault();
     const controlName = !name.trim() ? 'empty' : name.trim();
-
+    console.log(name, number);
     const dublicatedContact = listContacts.find(
-      contact => contact.name === controlName && contact.phone === phone
+      contact => contact.name === controlName && contact.phone === number
     );
     if (dublicatedContact) {
       toast.error(`${controlName} already in contacts.`);
       formReset();
       return;
     }
-    // *********************************************
-    dispatch(createContacts({ name: controlName, phone }));
-    // *********************************************
+    // ===================================================
+    dispatch(createContacts({ name: controlName, number }));
+    // ===================================================
     toast.success(`${controlName} added to contacts.`);
     formReset();
   }
@@ -61,9 +62,9 @@ export default function ContactForm() {
           className="nameField"
           type="tel"
           name="number"
-          value={phone}
-          onChange={evt => setPhone(evt.currentTarget.value)}
-          placeholder="Enter your number"
+          value={number}
+          onChange={evt => setNumber(evt.currentTarget.value)}
+          placeholder="Enter number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required

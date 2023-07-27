@@ -1,14 +1,15 @@
 
 .contactForm {
-    max-width: 800px;
+    // @extend .form;
+    // @extend .container;
+    width: 800px;
     position: relative;
-    // outline: dashed 2px grey;
     padding: 30 15px 0;
     display: flex;
     gap: 15px
 }
 .label {
-    width: 320px;
+    min-width: 300px;
 }
 .createContact {
 

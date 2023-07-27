@@ -6,14 +6,15 @@ import ContactForm from 'components/ContactForm';
 import FilterContacts from 'components/FilterContacts/FilterContacts';
 import ContactList from 'components/ContactList';
 import { selectContactsState } from 'redux/contacts/selectors';
-import { fetchContacts } from 'redux/contacts/operations';
+import { getContactList } from 'redux/contacts/operations';
+import { ErrorMessage } from 'components/ErrorMessage';
 
 const ContactsPage = () => {
   const dispatch = useDispatch();
   const { items, isLoading, error } = useSelector(selectContactsState);
-
+  console.log(error);
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(getContactList());
   }, [dispatch]);
 
   return (
@@ -32,14 +33,16 @@ const ContactsPage = () => {
           <p>Loading tasks...</p>
         </div>
       )}
-      {error && <p className="errorBlock">{error}</p>}
+      <div className="contactContainer">
+        {error && <ErrorMessage />}
 
-      {items.length !== 0 && (
-        <>
-          <FilterContacts />
-          <ContactList />
-        </>
-      )}
+        {items.length !== 0 && (
+          <>
+            <FilterContacts />
+            <ContactList />
+          </>
+        )}
+      </div>
     </div>
   );
 };

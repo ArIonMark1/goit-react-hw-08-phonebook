@@ -10,7 +10,7 @@ const ContactList = () => {
   const filterData = useSelector(selectFilter);
   const dispatch = useDispatch();
   // -------------------------------------------------------
-  const removeContact = id => dispatch(deleteContacts(id));
+  // const removeContact = id => dispatch(deleteContacts(id));
   // *******************************************************
 
   const newListContacts = listContacts.filter(contact =>
@@ -27,13 +27,13 @@ const ContactList = () => {
                 Name:
                 <span className="content"> {contact.name}</span>
                 Phone:
-                <span className="content"> {contact.phone}</span>
+                <span className="content"> {contact.number}</span>
                 <button
                   className="button"
                   type="button"
-                  onClick={() => {
-                    removeContact(contact.id);
-                  }}
+                  // onClick={() => {
+                  //   removeContact(contact.id);
+                  // }}
                 >
                   Delete
                 </button>

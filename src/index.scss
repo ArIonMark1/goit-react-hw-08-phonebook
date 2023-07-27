@@ -53,9 +53,11 @@ code {
 }
 .containerMessage{
   // border: 1px solid red;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   background-color: rgba(255, 0, 0, 0.557);
   border-radius: 5px;
   padding: 15px 20px;
@@ -82,18 +84,19 @@ code {
 }
 
 .form {
-  max-width: 450px;
-  padding-top: 30px;
-  // border-top: 1px solid rgba(128, 128, 128, 0.781);
+  position: relative;
+  width: 550px;
+  padding: 30px 15px 10px;
+  // border: 1px solid rgba(128, 128, 128, 0.781);
   border-top: 2px solid rgba(65, 105, 225, 0.3);
   .label {
       display: flex;
       flex-direction: column;
-      margin-bottom: 16px;
+      padding-bottom: 16px;
   
       input {
         display: block;
-
+        width: 100%;
         font-size: 16px;
         height: calc(2.25rem + 2px);
         padding: 5px 12px;

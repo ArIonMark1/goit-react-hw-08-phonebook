@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userRegister } from 'redux/auth/auth-operations';
+import { selectError } from 'redux/auth/selectors';
+import { ErrorMessage } from 'components/ErrorMessage';
 import './RegisterForm.scss';
 
 const RegisterForm = () => {
@@ -9,8 +11,8 @@ const RegisterForm = () => {
   const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
-  const { error } = useSelector(state => state.auth);
-  // console.log('authState: ', authState);
+  const error = useSelector(selectError);
+
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
       case 'name':
@@ -26,9 +28,11 @@ const RegisterForm = () => {
   };
   const handleSubmit = evt => {
     evt.preventDefault();
-    // ========================================
+
+    console.log({ name, email, password });
+    // ==============================================
     dispatch(userRegister({ name, email, password }));
-    // ========================================
+    // ==============================================
     setEmail('');
     setName('');
     setPassword('');
@@ -36,14 +40,7 @@ const RegisterForm = () => {
   return (
     <>
       <form className="form" autoComplete="off" onSubmit={handleSubmit}>
-        {error && (
-          <div className="containerMessage">
-            <p className="errorMessage">{error}</p>
-            <p className="errorMessage">
-              Incorrectly filled fields!! Please try again.
-            </p>
-          </div>
-        )}
+        {error && <ErrorMessage />}
         <label className="label">
           <h3>Name</h3>
           <input
