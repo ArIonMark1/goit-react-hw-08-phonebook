@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getContactList, createContacts, deleteContacts } from './operations';
-
+import { getContactList, createContacts } from './operations';
+// deleteContacts
 const initContactState = {
   //  { "name": "Jacob Mercer", "number": "761-23-96" }
   items: [], // стейт це об'єкт, дааний кусок стейту буде записаний як значення ключа "contacts" у головному стейті
