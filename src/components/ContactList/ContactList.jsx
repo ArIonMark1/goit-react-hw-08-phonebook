@@ -1,16 +1,16 @@
 import React from 'react';
 import './ContactList.scss';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectContacts, selectFilter } from 'redux/contacts/selectors';
-// import { deleteContacts } from 'redux/contacts/operations';
+import { deleteContacts } from 'redux/contacts/operations';
 
 const ContactList = () => {
   // *******************************************************
   const listContacts = useSelector(selectContacts);
   const filterData = useSelector(selectFilter);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // -------------------------------------------------------
-  // const removeContact = id => dispatch(deleteContacts(id));
+  const removeContact = id => dispatch(deleteContacts(id));
   // *******************************************************
 
   const newListContacts = listContacts.filter(contact =>
@@ -31,9 +31,9 @@ const ContactList = () => {
                 <button
                   className="button"
                   type="button"
-                  // onClick={() => {
-                  //   removeContact(contact.id);
-                  // }}
+                  onClick={() => {
+                    removeContact(contact.id);
+                  }}
                 >
                   Delete
                 </button>

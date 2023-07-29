@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userRegister } from 'redux/auth/auth-operations';
-import { selectError } from 'redux/auth/selectors';
+import { selectError, selectIsLogedIn } from 'redux/auth/selectors';
 import { ErrorMessage } from 'components/ErrorMessage';
 import './RegisterForm.scss';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
   const [name, setName] = useState('');
@@ -12,6 +13,8 @@ const RegisterForm = () => {
 
   const dispatch = useDispatch();
   const error = useSelector(selectError);
+  const isLogInn = useSelector(selectIsLogedIn);
+  const navigate = useNavigate();
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -33,6 +36,10 @@ const RegisterForm = () => {
     // ==============================================
     dispatch(userRegister({ name, email, password }));
     // ==============================================
+
+    if (isLogInn) {
+      navigate('/', { replace: true });
+    }
     setEmail('');
     setName('');
     setPassword('');

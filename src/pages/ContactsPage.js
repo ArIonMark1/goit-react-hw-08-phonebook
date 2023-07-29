@@ -12,7 +12,7 @@ import { ErrorMessage } from 'components/ErrorMessage';
 const ContactsPage = () => {
   const dispatch = useDispatch();
   const { items, isLoading, error } = useSelector(selectContactsState);
-  console.log(error);
+
   useEffect(() => {
     dispatch(getContactList());
   }, [dispatch]);

@@ -11,11 +11,11 @@ export const ErrorMessage = () => {
   const authError = useSelector(selectError);
 
   const error = contactsError || authError;
+  console.log(error);
   useState(() => {
     if (!error) {
       return;
     }
-    console.log(error);
     const codeArray = error
       .split('')
       .filter(el => parseInt(el) || parseInt(el) === 0)
@@ -23,15 +23,17 @@ export const ErrorMessage = () => {
 
     switch (parseInt(codeArray)) {
       case 400:
-        setCustomMessage(`${error}. Wrong user data. Try again please.`);
+        setCustomMessage(` ${error}. Wrong user data. Try again please.`);
         break;
       case 401:
         setCustomMessage(
-          'Incorrect authenticate . Missing header with authorization token.'
+          `Incorrect authenticate.
+          Missing header with authorization token.
+          LogIn please.`
         );
         break;
       case 404:
-        setCustomMessage('There is no such user collection.');
+        setCustomMessage(`${error} There is no such user collection.`);
         break;
       case 500:
         setCustomMessage(

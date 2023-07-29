@@ -4,8 +4,6 @@ import axios from 'axios';
 // --------------------------------------------------------------
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 // --------------------------------------------------------------
-// ****************************************************************
-// ****************************************************************
 
 const token = {
   set(token) {
@@ -36,14 +34,15 @@ export const userRegister = createAsyncThunk(
     }
   }
 );
-// Authorization: 'Bearer token'
+
 // =================================================================
 export const userLogIn = createAsyncThunk(
   'auth-user/logIn',
   async (userData, thunkAPI) => {
     try {
       const response = await axios.post('/users/login', userData);
-      console.log();
+      console.log('response: ', response);
+
       token.set(response.data.token); // put the token in the request header
       return response.data;
     } catch (error) {
@@ -66,3 +65,28 @@ export const userLogOut = createAsyncThunk(
 );
 
 // =================================================================
+/*
+ * Забираємо токен зі стейту через getState()
+ * Якщо токена немає виходимо не виконуючи ніяких операцій
+ * Якщо токен маємо, додаємо його в HTTP-заголовок і виконуємо операцію
+ */
+export const fetchCurrentUser = createAsyncThunk(
+  'auth-user/refresh',
+  async (_, thunkAPI) => {
+    // ****************************************
+    const sessionState = thunkAPI.getState();
+    const sessionToken = sessionState.auth.token;
+    // ****************************************
+    if (!sessionToken) {
+      return thunkAPI.rejectWithValue(null);
+    }
+    token.set(sessionToken);
+    try {
+      const response = await axios.get('/users/current');
+      console.log('Return refresh data: ', response.data);
+      return response.data; // { name: 'Mango', email: 'abc@example.com' }
+    } catch (error) {
+      thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
