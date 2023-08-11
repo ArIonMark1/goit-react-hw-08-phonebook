@@ -1,33 +1,22 @@
-import './UserMenu.scss';
-import { useSelector } from 'react-redux';
-import { selectIsLogedIn, selectUserData } from 'redux/auth/selectors';
 import { useDispatch } from 'react-redux';
-import { userLogOut } from 'redux/auth/auth-operations';
+import './UserMenu.scss';
+import { logOut } from 'redux/features/authApi/tokenSlice';
 import { useNavigate } from 'react-router-dom';
 
-const UserMenu = () => {
+const UserMenu = ({ userName }) => {
   const dispatch = useDispatch();
-  // const { name } = useSelector(selectUserData);
-  const isLogedIn = useSelector(selectIsLogedIn);
   const navigate = useNavigate();
 
-  const logOutAction = evt => {
-    evt.preventDefault();
-    // console.log('isLogedIn: ', isLogedIn);
-    dispatch(userLogOut());
-    if (isLogedIn) {
-      // console.log('isLogedIn: ', isLogedIn);
-      navigate('/login', { replace: true });
-    }
-    console.log('isLogedIn: ', isLogedIn);
+  const handleLogOut = () => {
+    dispatch(logOut());
+    navigate('/login');
   };
-
   return (
     <div className="wrapper">
       <p className="username">
-        Welcome <span>{name}</span>
+        Welcome <span>"{userName}"</span>
       </p>
-      <button type="button" className="button" onClick={logOutAction}>
+      <button type="button" className="button" onClick={handleLogOut}>
         Log Out
       </button>
     </div>

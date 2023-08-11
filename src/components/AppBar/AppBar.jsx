@@ -1,18 +1,19 @@
 import './AppBar.scss';
+
+import React from 'react';
 import UserMenu from 'components/UserMenu';
 import AuthNav from 'components/AuthNav';
 import Navigation from 'components/Navigation';
-import { useSelector } from 'react-redux';
-import { selectIsLogedIn } from 'redux/auth/selectors';
+import { HandleUserData } from 'hooks/handleUserData';
 
 const AppBar = () => {
-  const isLogedIn = useSelector(selectIsLogedIn);
-  // console.log('isLogedIn: ', isLogedIn);
+  const { data: userData } = HandleUserData();
+
   return (
-    <header className="header">
+    <>
       <Navigation />
-      {isLogedIn ? <UserMenu /> : <AuthNav />}
-    </header>
+      {userData ? <UserMenu userName={userData.name} /> : <AuthNav />}
+    </>
   );
 };
 

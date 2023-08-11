@@ -2,11 +2,17 @@ import { Outlet } from 'react-router-dom';
 import { SyncLoader } from 'react-spinners';
 import AppBar from 'components/AppBar';
 import { Suspense } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// import { useGetCurrentUserQuery } from 'redux/features/authApi/authApi';
 
 const Layout = () => {
   return (
     <>
-      <AppBar />
+      <header className="header">
+        <AppBar />
+      </header>
+
       <Suspense
         fallback={
           <div className="loaderBlock">
@@ -17,10 +23,10 @@ const Layout = () => {
               }}
               size={18}
             />
-            <p>Loading content...</p>
           </div>
         }
       >
+        <ToastContainer />
         <Outlet />
       </Suspense>
     </>

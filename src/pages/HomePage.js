@@ -1,29 +1,60 @@
-// import { UseSelector } from 'react-redux/es/hooks/useSelector';
-import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { selectUserData } from 'redux/auth/selectors';
+import { SyncLoader } from 'react-spinners';
+import { HandleUserData } from 'hooks/handleUserData';
 
 const styles = {
   container: {
-    minHeight: 'calc(100vh - 250px)',
+    minHeight: 'calc(100vh - 150px)',
+    padding: '0 15px',
+    gap: '25px',
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
   },
   title: {
     fontWeight: 500,
-    fontSize: 48,
+    fontSize: 40,
     textAlign: 'center',
   },
 };
 
 const HomePage = () => {
-  const { name } = useSelector(selectUserData);
+  const { data, isLoading, isSuccess } = HandleUserData();
+
+  if (isLoading) {
+    return (
+      <div style={styles.container}>
+        {
+          <div className="loaderBlock">
+            <SyncLoader
+              color="steelblue"
+              cssOverride={{
+                margin: '0 auto',
+              }}
+              size={18}
+            />
+            <p>Loading content...</p>
+          </div>
+        }
+      </div>
+    );
+  }
+  if (isSuccess) {
+    return (
+      <div style={styles.container}>
+        <>{data.avatar && <img src={data.avatar} width={300} />}</>
+        <h2
+          style={styles.title}
+        >{`Greeting ${data.name?.toUpperCase()}. Welcome to the phone book site :-)`}</h2>
+      </div>
+    );
+  }
   return (
     <div style={styles.container}>
       <h2 style={styles.title}>
-        {name
-          ? `Greeting ${name.toUpperCase()}. Welcome to the phone book site :-)`
-          : 'Welcome to the phone book site. Please register or log-in to continue using all the features of the site.'}
+        {
+          'Welcome to the phone book site. Please register or log-in to continue using all the features of the site.'
+        }
       </h2>
     </div>
   );

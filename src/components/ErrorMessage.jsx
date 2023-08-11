@@ -11,7 +11,7 @@ export const ErrorMessage = () => {
   const authError = useSelector(selectError);
 
   const error = contactsError || authError;
-  console.log(error);
+  // console.log(error);
   useState(() => {
     if (!error) {
       return;

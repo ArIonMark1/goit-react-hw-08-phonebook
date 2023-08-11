@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import './Navigation.scss';
-import { useSelector } from 'react-redux';
-import { selectIsLogedIn } from 'redux/auth/selectors';
+import { HandleUserData } from 'hooks/handleUserData';
 
 const Navigation = () => {
-  const isLogin = useSelector(selectIsLogedIn);
+  const { data: isLogin } = HandleUserData();
+
   return (
     <nav className="navBlock">
       <NavLink className="link" to="/">
