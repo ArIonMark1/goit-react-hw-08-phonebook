@@ -1,5 +1,6 @@
-import { SyncLoader } from 'react-spinners';
+// import { SyncLoader } from 'react-spinners';
 import { HandleUserData } from 'hooks/handleUserData';
+import Loader from 'components/Loader';
 
 const styles = {
   container: {
@@ -22,24 +23,15 @@ const HomePage = () => {
   const { data, isLoading, isSuccess } = HandleUserData();
 
   if (isLoading) {
+    console.log('isLoading: ', isLoading);
     return (
       <div style={styles.container}>
-        {
-          <div className="loaderBlock">
-            <SyncLoader
-              color="steelblue"
-              cssOverride={{
-                margin: '0 auto',
-              }}
-              size={18}
-            />
-            <p>Loading content...</p>
-          </div>
-        }
+        <Loader />;
       </div>
     );
   }
   if (isSuccess) {
+    console.log('isLoading: ', isLoading);
     return (
       <div style={styles.container}>
         <>

@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useGetCurrentUserQuery } from 'redux/features/authApi/authApi';
 // Святий хук, два дні над ним молився поки він не запрацював

@@ -36,7 +36,7 @@ const LoginForm = () => {
       // =================================================================
       if (logedInUser.data) {
         // ----------------------------------------------------------------
-        dispatch(setToken(logedInUser.data.access_token));
+        dispatch(setToken(logedInUser.data.token));
         // ----------------------------------------------------------------
         toast.success(`Welcome back ${state.email}`);
         setState(INIT_STATE);

@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import { SyncLoader } from 'react-spinners';
-import {
-  useUserLoginMutation,
-  useUserRegisterMutation,
-} from 'redux/features/authApi/authApi';
+import { useUserRegisterMutation } from 'redux/features/authApi/authApi';
 import './RegisterForm.scss';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
@@ -22,8 +18,7 @@ const INIT_STATE = {
 const RegisterForm = () => {
   const navigate = useNavigate();
   // ----------------------------------------------------------------
-  const [createUser, { isLoading, isError, error }] = useUserRegisterMutation();
-  const [login] = useUserLoginMutation();
+  const [createUser] = useUserRegisterMutation();
   // ----------------------------------------------------------------
   const dispatch = useDispatch();
   const controlMessage = ErrorMessage();
@@ -44,12 +39,6 @@ const RegisterForm = () => {
       }
       if (createdUser.data) {
         // ***********************************************
-        console.log('Created user: ', createdUser.data);
-        // const { data } = await login({
-        //   email: state.email,
-        //   password: state.password,
-        // });
-        // console.log('From register login: ', data);
         dispatch(setToken(createdUser.data.token));
         // ***********************************************
         toast.success(`User ${state.name} created successfully`);
@@ -61,19 +50,9 @@ const RegisterForm = () => {
       setState(INIT_STATE);
     }
   };
-
   return (
     <>
       <form className="form" autoComplete="off" onSubmit={handleSubmit}>
-        {isLoading && (
-          <SyncLoader
-            color="steelblue"
-            cssOverride={{
-              margin: '0 auto',
-            }}
-            size={16}
-          />
-        )}
         <label className="label">
           <h3>Name</h3>
           <input
