@@ -1,3 +1,6 @@
+import ContactForm from 'components/contactComponents/ContactForm';
+import ContactList from 'components/contactComponents/ContactList';
+
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -18,7 +21,10 @@ const ContactsPage = () => {
       />
       <h2>Phone Book</h2>
 
-      <div className="contactContainer"></div>
+      <div className="contactContainer">
+        <ContactForm />
+        <ContactList />
+      </div>
     </div>
   );
 };
