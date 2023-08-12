@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useUserRegisterMutation } from 'redux/features/authApi/authApi';
 import './RegisterForm.scss';
 import { toast } from 'react-toastify';
@@ -16,13 +16,22 @@ const INIT_STATE = {
 };
 
 const RegisterForm = () => {
+  const [state, setState] = useState({ ...INIT_STATE });
+
+  // ----------------------------------------------------------------
+  const [
+    createUser,
+    {
+      data: createdUser,
+      isSuccess: isCreateSuccess,
+      isError: isCreateError,
+      error: createError,
+    },
+  ] = useUserRegisterMutation();
+  // ----------------------------------------------------------------
   const navigate = useNavigate();
-  // ----------------------------------------------------------------
-  const [createUser] = useUserRegisterMutation();
-  // ----------------------------------------------------------------
   const dispatch = useDispatch();
   const controlMessage = ErrorMessage();
-  const [state, setState] = useState({ ...INIT_STATE });
 
   const handleChange = ({ target: { name, value } }) => {
     setState(prevState => ({ ...prevState, [name]: value }));
@@ -30,26 +39,36 @@ const RegisterForm = () => {
   const handleSubmit = async evt => {
     evt.preventDefault();
 
-    try {
-      // ***********************************************
-      const createdUser = await createUser(state);
-      // ***********************************************
-      if (createdUser.error) {
-        throw new Error(createdUser.error.status);
-      }
-      if (createdUser.data) {
-        // ***********************************************
-        dispatch(setToken(createdUser.data.token));
-        // ***********************************************
-        toast.success(`User ${state.name} created successfully`);
-        setState(INIT_STATE); // ???????? чистим стейт поки користувач в системі ???
-        navigate('/');
-      }
-    } catch (error) {
-      toast.error(controlMessage(error.message));
-      setState(INIT_STATE);
+    if ((state.name, state.email, state.password)) {
+      await createUser(state);
+    } else {
+      toast.error('Please fill all fields.');
     }
   };
+
+  useEffect(() => {
+    if (isCreateSuccess) {
+      // -----------------------------------------
+      dispatch(setToken(createdUser.token));
+      // -----------------------------------------
+      toast.success(`User ${state.name} created successfully`);
+      navigate('/');
+    }
+    if (isCreateError) {
+      toast.error(controlMessage(createError.status));
+      setState(INIT_STATE);
+    }
+  }, [
+    isCreateSuccess,
+    controlMessage,
+    isCreateError,
+    createError,
+    createdUser,
+    navigate,
+    dispatch,
+    state,
+  ]);
+
   return (
     <>
       <form className="form" autoComplete="off" onSubmit={handleSubmit}>

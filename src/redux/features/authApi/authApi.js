@@ -35,13 +35,13 @@ export const authApiSlice = createApi({
       invalidatesTags: ['authentication'],
     }),
     //
-    // userLogOut: builder.mutation({
-    //   query: id => ({
-    //     url: `/users/${id}`,
-    //     method: 'DELETE',
-    //   }),
-    //   invalidatesTags: ['authentication'],
-    // }),
+    userLogOut: builder.mutation({
+      query: id => ({
+        url: `/users/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['authentication'],
+    }),
     //
     getCurrentUser: builder.query({
       query: () => '/users/current',

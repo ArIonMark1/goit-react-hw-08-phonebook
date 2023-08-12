@@ -1,5 +1,5 @@
 import './LoginForm.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +14,17 @@ const INIT_STATE = {
 
 const LoginForm = () => {
   const [state, setState] = useState({ ...INIT_STATE });
-  const [login] = useUserLoginMutation();
+  // ****************************************************************
+  const [
+    login,
+    {
+      data: loginData,
+      isSuccess: isLoginSuccess,
+      isError: IsLoginError,
+      error: loginError,
+    },
+  ] = useUserLoginMutation();
+  // ****************************************************************
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const controlError = ErrorMessage();
@@ -22,34 +32,42 @@ const LoginForm = () => {
   const handleChange = ({ target: { name, value } }) => {
     setState(prevState => ({ ...prevState, [name]: value }));
   };
-
   const onSubmitForm = async evt => {
     evt.preventDefault();
 
-    try {
-      // ***********************************************
-      const logedInUser = await login(state);
-      // ***********************************************
-      if (logedInUser.error) {
-        throw new Error(logedInUser.error.status);
-      }
-      // =================================================================
-      if (logedInUser.data) {
-        // ----------------------------------------------------------------
-        dispatch(setToken(logedInUser.data.token));
-        // ----------------------------------------------------------------
-        toast.success(`Welcome back ${state.email}`);
-        setState(INIT_STATE);
-        navigate('/');
-      }
-      // =================================================================
-    } catch (err) {
-      // -------------------------------------------
-      toast.error(`Sorry you can't log in. ${controlError(err.message)}`);
-      // -------------------------------------------
-      setState(INIT_STATE);
+    if (state.email && state.password) {
+      await login(state);
+    } else {
+      toast.error('Please fill all fields.');
     }
   };
+
+  useEffect(() => {
+    if (isLoginSuccess) {
+      // ----------------------------------------------------------------
+      dispatch(setToken(loginData.token));
+      // ----------------------------------------------------------------
+      toast.success(`Welcome back ${state.email}`);
+      navigate('/');
+      // =================================================================
+    }
+    if (IsLoginError) {
+      setState(INIT_STATE);
+      // -------------------------------------------
+      toast.error(`Sorry you can't log in. ${controlError(loginError.status)}`);
+      // -------------------------------------------
+    }
+  }, [
+    isLoginSuccess,
+    IsLoginError,
+    controlError,
+    loginError,
+    loginData,
+    navigate,
+    dispatch,
+    state,
+  ]);
+
   return (
     <>
       <form className="form" onSubmit={onSubmitForm}>
