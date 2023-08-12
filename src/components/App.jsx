@@ -1,7 +1,6 @@
-import { lazy, useEffect } from 'react';
+import { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from '../pages/Layout';
-import { useGetCurrentUserQuery } from 'redux/features/authApi/authApi';
 
 const HomePage = lazy(() => import('../pages/HomePage'));
 const LoginPage = lazy(() => import('../pages/LoginPage'));

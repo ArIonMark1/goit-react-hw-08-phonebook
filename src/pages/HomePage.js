@@ -42,7 +42,7 @@ const HomePage = () => {
   if (isSuccess) {
     return (
       <div style={styles.container}>
-        <>{data.avatar && <img src={data.avatar} width={300} />}</>
+        <>{data.avatar && <img src={data.avatar} width={300} alt="avatar" />}</>
         <h2
           style={styles.title}
         >{`Greeting ${data.name?.toUpperCase()}. Welcome to the phone book site :-)`}</h2>

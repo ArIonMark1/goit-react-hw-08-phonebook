@@ -49,7 +49,7 @@ const RegisterForm = () => {
         dispatch(setToken(data.access_token));
         // ***********************************************
         toast.success(`User ${state.name} created successfully`);
-        setState(INIT_STATE);
+        setState(INIT_STATE); // ???????? чистим стейт поки користувач в системі ???
         navigate('/');
       }
     } catch (error) {
