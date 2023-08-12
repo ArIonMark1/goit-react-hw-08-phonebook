@@ -3,9 +3,10 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const authApiSlice = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.escuelajs.co/api/v1',
+    // baseUrl: 'https://api.escuelajs.co/api/v1',
+    baseUrl: 'https://connections-api.herokuapp.com',
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().authToken.token;
+      const token = getState().token.token;
       console.log(' getState: ', getState());
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
@@ -18,7 +19,8 @@ export const authApiSlice = createApi({
     //
     userRegister: builder.mutation({
       query: newCredential => ({
-        url: '/users/',
+        // url: '/users/',
+        url: '/users/signup/',
         method: 'POST',
         body: newCredential,
       }),
@@ -27,7 +29,8 @@ export const authApiSlice = createApi({
     //
     userLogin: builder.mutation({
       query: credential => ({
-        url: '/auth/login/',
+        // url: '/auth/login/',
+        url: '/users/login',
         method: 'POST',
         body: credential, // user data object
       }),
@@ -43,7 +46,8 @@ export const authApiSlice = createApi({
     // }),
     //
     getCurrentUser: builder.query({
-      query: () => '/auth/profile/',
+      // query: () => '/auth/profile/',
+      query: () => '/users/current',
       providesTags: ['authentication'],
     }),
   }),

@@ -5,7 +5,7 @@ import { useGetCurrentUserQuery } from 'redux/features/authApi/authApi';
 
 export const HandleUserData = () => {
   // перевіряємо чи є токен в стейті
-  const isToken = state => state.authToken.token;
+  const isToken = state => state.token.token;
   const controlState = useSelector(isToken);
   // контролюємо запит по наявності токена, також при розриві інтернет з'єднання буде повторний запит
   const { data, isLoading, isSuccess } = useGetCurrentUserQuery(controlState, {

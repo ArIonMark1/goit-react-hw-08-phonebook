@@ -14,17 +14,17 @@ import storage from 'redux-persist/lib/storage';
 
 import { authApiSlice } from './features/authApi/authApi';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
-import { tokenReducer } from './features/authApi/tokenSlice';
+import { authReducer } from './features/authApi/tokenSlice';
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['authToken'],
+  whitelist: [authReducer.name],
 };
 
 const rootReducer = combineReducers({
   [authApiSlice.reducerPath]: authApiSlice.reducer,
-  authToken: tokenReducer,
+  [authReducer.name]: authReducer.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

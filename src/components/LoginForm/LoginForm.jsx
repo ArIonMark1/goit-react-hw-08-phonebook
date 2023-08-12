@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useUserLoginMutation } from 'redux/features/authApi/authApi';
 import { setToken } from 'redux/features/authApi/tokenSlice';
+import { ErrorMessage } from 'components/ErrorMessage';
 
 const INIT_STATE = {
   email: '',
@@ -16,6 +17,7 @@ const LoginForm = () => {
   const [login] = useUserLoginMutation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const controlError = ErrorMessage();
 
   const handleChange = ({ target: { name, value } }) => {
     setState(prevState => ({ ...prevState, [name]: value }));
@@ -29,7 +31,7 @@ const LoginForm = () => {
       const logedInUser = await login(state);
       // ***********************************************
       if (logedInUser.error) {
-        throw new Error(logedInUser.error.data.message);
+        throw new Error(logedInUser.error.status);
       }
       // =================================================================
       if (logedInUser.data) {
@@ -42,7 +44,9 @@ const LoginForm = () => {
       }
       // =================================================================
     } catch (err) {
-      toast.error(`Sorry you can't log in. ${err.message}`);
+      // -------------------------------------------
+      toast.error(`Sorry you can't log in. ${controlError(err.message)}`);
+      // -------------------------------------------
       setState(INIT_STATE);
     }
   };

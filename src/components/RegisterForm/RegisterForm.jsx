@@ -9,10 +9,11 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setToken } from 'redux/features/authApi/tokenSlice';
+import { ErrorMessage } from 'components/ErrorMessage';
 
 const INIT_STATE = {
-  email: '',
   name: '',
+  email: '',
   password: '',
   avatar:
     'https://ih1.redbubble.net/image.5075891342.0210/poster,504x498,f8f8f8-pad,600x600,f8f8f8.jpg',
@@ -21,10 +22,11 @@ const INIT_STATE = {
 const RegisterForm = () => {
   const navigate = useNavigate();
   // ----------------------------------------------------------------
-  const [createUser, { isLoading }] = useUserRegisterMutation();
+  const [createUser, { isLoading, isError, error }] = useUserRegisterMutation();
   const [login] = useUserLoginMutation();
   // ----------------------------------------------------------------
   const dispatch = useDispatch();
+  const controlMessage = ErrorMessage();
   const [state, setState] = useState({ ...INIT_STATE });
 
   const handleChange = ({ target: { name, value } }) => {
@@ -38,22 +40,24 @@ const RegisterForm = () => {
       const createdUser = await createUser(state);
       // ***********************************************
       if (createdUser.error) {
-        throw new Error(createdUser.error.data.message);
+        throw new Error(createdUser.error.status);
       }
       if (createdUser.data) {
         // ***********************************************
-        const { data } = await login({
-          email: state.email,
-          password: state.password,
-        });
-        dispatch(setToken(data.access_token));
+        console.log('Created user: ', createdUser.data);
+        // const { data } = await login({
+        //   email: state.email,
+        //   password: state.password,
+        // });
+        // console.log('From register login: ', data);
+        dispatch(setToken(createdUser.data.token));
         // ***********************************************
         toast.success(`User ${state.name} created successfully`);
         setState(INIT_STATE); // ???????? чистим стейт поки користувач в системі ???
         navigate('/');
       }
     } catch (error) {
-      toast.error(error.message);
+      toast.error(controlMessage(error.message));
       setState(INIT_STATE);
     }
   };

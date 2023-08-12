@@ -42,7 +42,15 @@ const HomePage = () => {
   if (isSuccess) {
     return (
       <div style={styles.container}>
-        <>{data.avatar && <img src={data.avatar} width={300} alt="avatar" />}</>
+        <>
+          {/* {data.avatar && ( */}
+          <img
+            src="https://ih1.redbubble.net/image.5075891342.0210/poster,504x498,f8f8f8-pad,600x600,f8f8f8.jpg"
+            width={300}
+            alt="avatar"
+          />
+          {/* )} */}
+        </>
         <h2
           style={styles.title}
         >{`Greeting ${data.name?.toUpperCase()}. Welcome to the phone book site :-)`}</h2>
