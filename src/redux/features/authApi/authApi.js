@@ -19,7 +19,6 @@ export const authApiSlice = createApi({
     //
     userRegister: builder.mutation({
       query: newCredential => ({
-        // url: '/users/',
         url: '/users/signup/',
         method: 'POST',
         body: newCredential,
@@ -29,7 +28,6 @@ export const authApiSlice = createApi({
     //
     userLogin: builder.mutation({
       query: credential => ({
-        // url: '/auth/login/',
         url: '/users/login',
         method: 'POST',
         body: credential, // user data object
@@ -46,7 +44,6 @@ export const authApiSlice = createApi({
     // }),
     //
     getCurrentUser: builder.query({
-      // query: () => '/auth/profile/',
       query: () => '/users/current',
       providesTags: ['authentication'],
     }),
