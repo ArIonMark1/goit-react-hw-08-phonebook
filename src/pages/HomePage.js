@@ -1,4 +1,3 @@
-// import { SyncLoader } from 'react-spinners';
 import { HandleUserData } from 'hooks/handleUserData';
 import Loader from 'components/Loader';
 
