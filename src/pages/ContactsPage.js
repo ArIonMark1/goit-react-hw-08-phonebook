@@ -1,5 +1,5 @@
 // import ContactForm from '../components/contactComponents/ContactForm/ContactForm';
-import ContactList from '../components/contactComponents/ContactList/ContactList';
+// import ContactList from '../components/contactComponents/ContactList/ContactList';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -23,7 +23,7 @@ const ContactsPage = () => {
 
       <div className="contactContainer">
         {/* <ContactForm /> */}
-        <ContactList />
+        {/* <ContactList /> */}
       </div>
     </div>
   );
