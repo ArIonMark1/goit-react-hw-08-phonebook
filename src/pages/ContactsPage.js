@@ -1,5 +1,5 @@
-import ContactForm from 'components/contactComponents/ContactForm';
-import ContactList from 'components/contactComponents/ContactList';
+import ContactForm from '../components/contactComponents/ContactForm/ContactForm';
+import ContactList from '../components/contactComponents/ContactList/ContactList';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
