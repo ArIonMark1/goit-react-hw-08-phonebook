@@ -1,6 +1,6 @@
 import React from 'react';
-import ContactForm from 'components/ContactComponents/ContactForm';
-import ContactList from 'components/ContactComponents/ContactList';
+import ContactForm from 'components/ContactComponents/СontactForm/СontactForm';
+import ContactList from 'components/ContactComponents/СontactList/СontactList';
 
 const ContactsPage = () => {
   return (
