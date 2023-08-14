@@ -10,7 +10,6 @@ const ContactList = () => {
     isError,
     error: contactsError,
   } = useGetContactsQuery();
-
   //
   return (
     <>

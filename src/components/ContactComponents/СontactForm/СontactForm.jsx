@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
-// import { useSelector } from 'react-redux';
 import { useCreateContactMutation } from 'redux/features/authApi/authApi';
 
 const INIT_STATE = {
