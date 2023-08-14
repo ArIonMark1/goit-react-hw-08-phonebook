@@ -4,6 +4,9 @@
   align-items: center;
   .link {
     color: #352428;
+    &.active {
+      color: #e84a5f;
+    }
   }
 
   @media screen and (min-width: 420px) {
