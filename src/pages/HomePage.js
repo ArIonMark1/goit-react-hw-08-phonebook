@@ -4,6 +4,7 @@ import Loader from 'components/Loader';
 const styles = {
   container: {
     minHeight: 'calc(100vh - 150px)',
+    width: '100%',
     padding: '0 15px',
     position: 'fixed',
     gap: '25px',
@@ -22,16 +23,16 @@ const styles = {
 const HomePage = () => {
   const { data, isLoading, isSuccess } = HandleUserData();
 
+  console.log('loading on home page: ', isLoading);
+
   if (isLoading) {
-    console.log('isLoading: ', isLoading);
     return (
       <div style={styles.container}>
-        <Loader />;
+        <Loader />
       </div>
     );
   }
   if (isSuccess) {
-    console.log('isLoading: ', isLoading);
     return (
       <div style={styles.container}>
         <>

@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  .link {
+    color: #352428;
+  }
 
   @media screen and (min-width: 420px) {
     flex-direction: row;

@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useUserLoginMutation } from 'redux/features/authApi/authApi';
-import { setToken } from 'redux/features/authApi/tokenSlice';
+import { useUserLoginMutation } from 'redux/features/userApi/authApi';
+import { setToken } from 'redux/features/userApi/tokenSlice';
 import { AuthErrorMessage } from 'hooks/AuthErrorMessage';
 
 const INIT_STATE = {

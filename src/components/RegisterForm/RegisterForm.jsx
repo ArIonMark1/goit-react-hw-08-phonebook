@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useUserRegisterMutation } from 'redux/features/authApi/authApi';
+import { useUserRegisterMutation } from 'redux/features/userApi/authApi';
 import './RegisterForm.scss';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setToken } from 'redux/features/authApi/tokenSlice';
+import { setToken } from 'redux/features/userApi/tokenSlice';
 import { AuthErrorMessage } from 'hooks/AuthErrorMessage';
 import './RegisterForm.scss';
 

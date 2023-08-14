@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
-import { useGetCurrentUserQuery } from 'redux/features/authApi/authApi';
+import { useGetCurrentUserQuery } from 'redux/features/userApi/authApi';
+import { selectToken } from 'redux/features/userApi/selectors';
 // Святий хук, два дні над ним молився поки він не запрацював
 
 export const HandleUserData = () => {
   // перевіряємо чи є токен в стейті
-  const isToken = state => state.token.token;
-  const controlState = useSelector(isToken);
+  const controlState = useSelector(selectToken);
 
   // контролюємо запит по наявності токена, також при розриві інтернет з'єднання буде повторний запит
   const { data, isLoading, isSuccess } = useGetCurrentUserQuery(controlState, {

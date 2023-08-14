@@ -12,9 +12,9 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import { authApiSlice } from './features/authApi/authApi';
+import { authApiSlice } from './features/userApi/authApi';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
-import { authReducer } from './features/authApi/tokenSlice';
+import { authReducer } from './features/userApi/tokenSlice';
 
 const persistConfig = {
   key: 'root',

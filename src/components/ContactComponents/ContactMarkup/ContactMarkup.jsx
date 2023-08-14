@@ -1,4 +1,4 @@
-import { useDeleteContactMutation } from 'redux/features/authApi/authApi';
+import { useDeleteContactMutation } from 'redux/features/userApi/authApi';
 import { PulseLoader } from 'react-spinners';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';

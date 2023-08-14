@@ -1,4 +1,4 @@
-import { useGetContactsQuery } from 'redux/features/authApi/authApi';
+import { useGetContactsQuery } from 'redux/features/userApi/authApi';
 import ContactMarkup from '../ContactMarkup';
 import Loader from 'components/Loader';
 import './ContactList.scss';
@@ -13,8 +13,8 @@ const ContactList = () => {
   //
   return (
     <>
-      <label className="label">
-        <p>Find contact by name</p>
+      <label className="label" htmlFor="filter">
+        <h3>Find contact by name</h3>
         <input
           type="text"
           name="filter"

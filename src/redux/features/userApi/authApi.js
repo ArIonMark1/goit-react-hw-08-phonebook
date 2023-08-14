@@ -17,6 +17,11 @@ export const authApiSlice = createApi({
   tagTypes: ['authentication', 'contacts'],
   endpoints: builder => ({
     //
+    getCurrentUser: builder.query({
+      query: () => '/users/current',
+      providesTags: ['authentication'],
+    }),
+    //
     userRegister: builder.mutation({
       query: newCredential => ({
         url: '/users/signup/',
@@ -39,14 +44,9 @@ export const authApiSlice = createApi({
       // LOGOUT
       query: () => ({
         url: 'users/logout',
-        method: 'POST', // ??????????????????????????????????
+        method: 'POST',
       }),
       invalidatesTags: ['authentication'],
-    }),
-    //
-    getCurrentUser: builder.query({
-      query: () => '/users/current',
-      providesTags: ['authentication'],
     }),
     //
     getContacts: builder.query({
@@ -74,6 +74,7 @@ export const authApiSlice = createApi({
 export const {
   useUserRegisterMutation,
   useUserLoginMutation,
+  useUserLogOutMutation,
   useGetCurrentUserQuery,
   useGetContactsQuery,
   useCreateContactMutation,

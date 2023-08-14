@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
-import { useCreateContactMutation } from 'redux/features/authApi/authApi';
+import { useCreateContactMutation } from 'redux/features/userApi/authApi';
+import './СontactForm.scss';
 
 const INIT_STATE = {
   name: '',
@@ -57,10 +58,9 @@ const ContactForm = () => {
 
   // ****************************************************************
   return (
-    <form id="form" className="contactForm form" onSubmit={formSubmit}>
+    <form id="form" className="contactForm" onSubmit={formSubmit}>
       <label className="label" htmlFor="name">
-        Name
-        <br />
+        <h3>Name</h3>
         <input
           id="name"
           className="nameField"
@@ -75,8 +75,7 @@ const ContactForm = () => {
         />
       </label>
       <label className="label" htmlFor="number">
-        Number
-        <br />
+        <h3>Number</h3>
         <input
           className="nameField"
           id="number"
@@ -90,7 +89,11 @@ const ContactForm = () => {
           required
         />
       </label>
-      <button className="button" type="submit" disabled={isLoading}>
+      <button
+        className="button contactForm__button"
+        type="submit"
+        disabled={isLoading}
+      >
         {isLoading && <PulseLoader size={5} color="white" />}
         <span>Add contact</span>
       </button>

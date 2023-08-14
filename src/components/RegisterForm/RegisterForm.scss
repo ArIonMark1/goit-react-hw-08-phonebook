@@ -7,7 +7,7 @@
   .form {
     width: 100%;
     padding: 25px 0px;
-    border-top: 2px solid rgba(65, 105, 225, 0.3);
+    border-top: 2px solid rgba(216, 185, 126, 0.829);
 
     @media screen and (min-width: 768px) {
       width: 500px;
@@ -26,12 +26,24 @@
         height: calc(2.25rem + 2px);
         padding: 5px 12px;
         margin-top: 5px;
+        outline: transparent;
         color: #495057;
         background-color: #fff;
         background-clip: padding-box;
-        border: 1px solid #ced4da;
+        // border: 1px solid #ced4da;
+        border: none;
         border-radius: 0.25rem;
-        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        box-shadow: inset // 0 -1em 2em rgba(0, 0, 0, 0.5),
+          0 -1em 1em rgba(192, 180, 175, 0.5),
+          0 0 16px 0.5px #c7c4be, 0.4em 0.7em 0.6em rgba(0, 0, 0, 0.2);
+        transition: outline 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        &:focus {
+          outline-width: 1px;
+          outline-color: rgba(192, 180, 175, 0.5);
+          outline-style: outset;
+          // outline: 1px solid tomato;
+          // border: 2px solid red;rgba(244, 216, 113, 1)
+        }
       }
     }
     &__button {

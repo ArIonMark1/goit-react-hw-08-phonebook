@@ -23,7 +23,7 @@ const Loader = () => {
       {
         <div className="loaderBlock">
           <SyncLoader
-            color="steelblue"
+            color="rgba(255, 142, 10, 0.94)"
             cssOverride={{
               margin: '0 auto',
             }}
