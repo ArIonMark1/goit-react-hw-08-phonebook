@@ -1,2 +1,2 @@
-import * as ContactForm from './ContactForm';
-import * as ContactList from './ContactList';
+import * as ContactForm from './ContactForm/ContactForm';
+import * as ContactList from './ContactList/ContactList';
