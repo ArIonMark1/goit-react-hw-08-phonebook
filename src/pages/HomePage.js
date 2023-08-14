@@ -5,6 +5,7 @@ const styles = {
   container: {
     minHeight: 'calc(100vh - 150px)',
     padding: '0 15px',
+    position: 'fixed',
     gap: '25px',
     display: 'flex',
     flexDirection: 'column',
