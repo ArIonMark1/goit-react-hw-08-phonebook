@@ -1,10 +1,16 @@
-// .link {
-//     display: inline-block;
-//     text-decoration: none;
-//     padding: 12px;
-//     font-weight: 700;
-//     color: #2a363b;
-//     &.active {
-//         color: #e84a5f;
-//     }
-// }
+.authBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  @media screen and (min-width: 420px) {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+  }
+}

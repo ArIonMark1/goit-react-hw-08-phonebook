@@ -14,7 +14,7 @@ export const authApiSlice = createApi({
       return headers;
     },
   }),
-  tagTypes: ['authentication'],
+  tagTypes: ['authentication', 'contacts'],
   endpoints: builder => ({
     //
     userRegister: builder.mutation({
@@ -36,9 +36,10 @@ export const authApiSlice = createApi({
     }),
     //
     userLogOut: builder.mutation({
-      query: id => ({
-        url: `/users/${id}`,
-        method: 'DELETE',
+      // LOGOUT
+      query: () => ({
+        url: 'users/logout',
+        method: 'POST', // ??????????????????????????????????
       }),
       invalidatesTags: ['authentication'],
     }),
@@ -47,6 +48,26 @@ export const authApiSlice = createApi({
       query: () => '/users/current',
       providesTags: ['authentication'],
     }),
+    //
+    getContacts: builder.query({
+      query: () => '/contacts',
+      providesTags: ['contacts'],
+    }),
+    createContact: builder.mutation({
+      query: contactData => ({
+        url: '/contacts',
+        method: 'POST',
+        body: contactData,
+      }),
+      invalidatesTags: ['contacts'],
+    }),
+    deleteContact: builder.mutation({
+      query: contactId => ({
+        url: `/contacts/${contactId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['contacts'],
+    }),
   }),
 });
 
@@ -54,4 +75,7 @@ export const {
   useUserRegisterMutation,
   useUserLoginMutation,
   useGetCurrentUserQuery,
+  useGetContactsQuery,
+  useCreateContactMutation,
+  useDeleteContactMutation,
 } = authApiSlice;

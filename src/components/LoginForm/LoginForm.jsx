@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useUserLoginMutation } from 'redux/features/authApi/authApi';
 import { setToken } from 'redux/features/authApi/tokenSlice';
-import { ErrorMessage } from 'components/ErrorMessage';
+import { AuthErrorMessage } from 'hooks/AuthErrorMessage';
 
 const INIT_STATE = {
   email: '',
@@ -22,12 +22,13 @@ const LoginForm = () => {
       isSuccess: isLoginSuccess,
       isError: IsLoginError,
       error: loginError,
+      isLoading,
     },
   ] = useUserLoginMutation();
   // ****************************************************************
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const controlError = ErrorMessage();
+  // const controlError = AuthErrorMessage();
 
   const handleChange = ({ target: { name, value } }) => {
     setState(prevState => ({ ...prevState, [name]: value }));
@@ -47,26 +48,20 @@ const LoginForm = () => {
       // ----------------------------------------------------------------
       dispatch(setToken(loginData.token));
       // ----------------------------------------------------------------
-      toast.success(`Welcome back ${state.email}`);
+      toast.success(`Welcome back ${loginData.user.email}`);
       navigate('/');
       // =================================================================
     }
     if (IsLoginError) {
       setState(INIT_STATE);
       // -------------------------------------------
-      toast.error(`Sorry you can't log in. ${controlError(loginError.status)}`);
+      toast.error(
+        `Sorry you can't log in. ${AuthErrorMessage(loginError.status)}`
+      );
       // -------------------------------------------
+      return;
     }
-  }, [
-    isLoginSuccess,
-    IsLoginError,
-    controlError,
-    loginError,
-    loginData,
-    navigate,
-    dispatch,
-    state,
-  ]);
+  }, [isLoginSuccess, IsLoginError, loginError, loginData, navigate, dispatch]);
 
   return (
     <>
@@ -91,7 +86,11 @@ const LoginForm = () => {
             onChange={handleChange}
           />
         </label>
-        <button className="form__button button" type="submit">
+        <button
+          className="form__button button"
+          type="submit"
+          disabled={isLoading}
+        >
           Login
         </button>
       </form>

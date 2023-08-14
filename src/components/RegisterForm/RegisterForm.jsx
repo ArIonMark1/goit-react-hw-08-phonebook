@@ -5,7 +5,8 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setToken } from 'redux/features/authApi/tokenSlice';
-import { ErrorMessage } from 'components/ErrorMessage';
+import { AuthErrorMessage } from 'hooks/AuthErrorMessage';
+import './RegisterForm.scss';
 
 const INIT_STATE = {
   name: '',
@@ -17,7 +18,6 @@ const INIT_STATE = {
 
 const RegisterForm = () => {
   const [state, setState] = useState({ ...INIT_STATE });
-
   // ----------------------------------------------------------------
   const [
     createUser,
@@ -28,10 +28,10 @@ const RegisterForm = () => {
       error: createError,
     },
   ] = useUserRegisterMutation();
+
   // ----------------------------------------------------------------
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const controlMessage = ErrorMessage();
 
   const handleChange = ({ target: { name, value } }) => {
     setState(prevState => ({ ...prevState, [name]: value }));
@@ -45,29 +45,34 @@ const RegisterForm = () => {
       toast.error('Please fill all fields.');
     }
   };
+  const clearState = () => {
+    setState(INIT_STATE);
+  };
 
+  // ****************************************************************
   useEffect(() => {
     if (isCreateSuccess) {
       // -----------------------------------------
       dispatch(setToken(createdUser.token));
       // -----------------------------------------
-      toast.success(`User ${state.name} created successfully`);
+      console.log(createdUser);
+      toast.success(`User ${createdUser.user.name} created successfully`);
       navigate('/');
     }
     if (isCreateError) {
-      toast.error(controlMessage(createError.status));
-      setState(INIT_STATE);
+      toast.error(AuthErrorMessage(createError.status));
+      clearState();
     }
   }, [
     isCreateSuccess,
-    controlMessage,
     isCreateError,
     createError,
     createdUser,
     navigate,
     dispatch,
-    state,
   ]);
+
+  // ****************************************************************
 
   return (
     <>

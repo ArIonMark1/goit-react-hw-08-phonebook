@@ -13,7 +13,18 @@ const Layout = () => {
       </header>
 
       <Suspense fallback={<Loader />}>
-        <ToastContainer />
+        <ToastContainer
+          position="top-center"
+          autoClose={1500}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
         <Outlet />
       </Suspense>
     </>

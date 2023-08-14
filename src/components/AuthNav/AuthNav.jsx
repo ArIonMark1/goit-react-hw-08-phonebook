@@ -3,7 +3,7 @@ import './AuthNav.scss';
 
 const AuthNav = () => {
   return (
-    <div className="wrapper">
+    <div className="authBlock">
       <NavLink className="link" to="/registration">
         Registration
       </NavLink>
@@ -13,4 +13,5 @@ const AuthNav = () => {
     </div>
   );
 };
+
 export default AuthNav;
