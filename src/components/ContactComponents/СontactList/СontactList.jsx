@@ -31,11 +31,11 @@ const ContactList = () => {
       )}
 
       {contacts && (
-        <ol className="contactList">
+        <ul className="contactList">
           {contacts.map(contact => (
             <ContactMarkup key={contact.id} contactData={contact} />
           ))}
-        </ol>
+        </ul>
       )}
     </>
   );

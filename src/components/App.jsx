@@ -2,6 +2,8 @@ import { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from '../pages/Layout';
 import { RestrictedRoute } from './PublicRoute';
+import { PrivateRoute } from './PrivateRoute';
+import { Navigate } from 'react-router-dom';
 
 const HomePage = lazy(() => import('../pages/HomePage'));
 const LoginPage = lazy(() => import('../pages/LoginPage'));
@@ -33,16 +35,17 @@ export const App = () => {
               ></RestrictedRoute>
             }
           />
-          <Route path="/contacts" element={<ContactsPage />} />
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute
+                redirectTo={'/login'}
+                component={<ContactsPage />}
+              ></PrivateRoute>
+            }
+          />
         </Route>
-        <Route
-          path="*"
-          element={
-            <div>
-              <p>Page not Found.</p>
-            </div>
-          }
-        />
+        <Route path="*" element={<Navigate to={'/'} />} />
       </Routes>
     </div>
   );

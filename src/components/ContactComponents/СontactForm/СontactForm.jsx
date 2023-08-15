@@ -94,7 +94,7 @@ const ContactForm = () => {
         type="submit"
         disabled={isLoading}
       >
-        {isLoading && <PulseLoader size={5} color="white" />}
+        {isLoading && <PulseLoader size={5} color="#7a5421" />}
         <span>Add contact</span>
       </button>
     </form>

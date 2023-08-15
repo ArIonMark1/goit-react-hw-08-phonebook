@@ -34,20 +34,16 @@ const ContactMarkup = ({ contactData }) => {
           <span className="title">Number: </span>
           <span className="text"> {contactData.number}</span>
         </p>
-        <p>
-          <span className="title dataContent">Created: </span>
-          <span className="text dataContent"> {contactData.number}</span>
-        </p>
-        <button
-          className="button"
-          type="submit"
-          disabled={isLoading}
-          onClick={handleDeleteContact}
-        >
-          {isLoading && <PulseLoader size={5} color="white" />}
-          <span>Delete contact</span>
-        </button>
       </div>
+      <button
+        className="button delete-button"
+        type="submit"
+        disabled={isLoading}
+        onClick={handleDeleteContact}
+      >
+        {isLoading && <PulseLoader size={5} color="#7a5421" />}
+        <span>Delete</span>
+      </button>
     </li>
   );
 };

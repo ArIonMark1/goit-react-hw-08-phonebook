@@ -1,8 +1,11 @@
+import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { HandleUserData } from 'hooks/handleUserData';
+// import { HandleUserData } from 'hooks/handleUserData';
+import { selectToken } from 'redux/features/userApi/selectors';
 
-export const RestrictedRoute = ({ component: Component, redirectTo = '/' }) => {
-  const { isSuccess } = HandleUserData();
+export const RestrictedRoute = ({ redirectTo = '/', component: Component }) => {
+  const isToken = useSelector(selectToken);
+  // const { isSuccess } = HandleUserData();
 
-  return isSuccess ? <Navigate to={redirectTo} /> : Component;
+  return isToken ? <Navigate to={redirectTo} /> : Component;
 };
