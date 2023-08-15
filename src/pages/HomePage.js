@@ -23,8 +23,6 @@ const styles = {
 const HomePage = () => {
   const { data, isLoading, isSuccess } = HandleUserData();
 
-  // console.log('loading on home page: ', isLoading);
-
   if (isLoading) {
     return (
       <div style={styles.container}>

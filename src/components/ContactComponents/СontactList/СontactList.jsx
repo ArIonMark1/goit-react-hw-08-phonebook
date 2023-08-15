@@ -2,14 +2,25 @@ import { useGetContactsQuery } from 'redux/features/userApi/authApi';
 import ContactMarkup from '../ContactMarkup';
 import Loader from 'components/Loader';
 import './ContactList.scss';
+import { useState } from 'react';
 
 const ContactList = () => {
+  const [filter, setFilter] = useState('');
   const {
     data: contacts,
     isFetching: contactsLoad,
     isError,
     error: contactsError,
-  } = useGetContactsQuery();
+  } = useGetContactsQuery(); // тут краще працювати зі стейтом або мати на бекенді можливість брати дані по імені
+  //
+  const handleFilterField = ({ currentTarget }) => {
+    const filterData = currentTarget.value.toLowerCase();
+    setFilter(filterData);
+  };
+  //
+  const filteredContacts = contacts?.filter(contact =>
+    contact.name.toLowerCase().includes(filter)
+  );
   //
   return (
     <>
@@ -19,6 +30,7 @@ const ContactList = () => {
           type="text"
           name="filter"
           className="filterField"
+          onChange={handleFilterField}
           placeholder="Filter contacts..."
         ></input>
       </label>
@@ -29,10 +41,9 @@ const ContactList = () => {
           <p>{contactsError.error.message}</p>
         </div>
       )}
-
       {contacts && (
         <ul className="contactList">
-          {contacts.map(contact => (
+          {filteredContacts.map(contact => (
             <ContactMarkup key={contact.id} contactData={contact} />
           ))}
         </ul>

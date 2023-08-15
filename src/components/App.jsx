@@ -35,15 +35,9 @@ export const App = () => {
               ></RestrictedRoute>
             }
           />
-          <Route
-            path="/contacts"
-            element={
-              <PrivateRoute
-                redirectTo={'/login'}
-                component={<ContactsPage />}
-              ></PrivateRoute>
-            }
-          />
+          <Route element={<PrivateRoute redirectTo="/login" />}>
+            <Route path="/contacts" element={<ContactsPage />} />
+          </Route>
         </Route>
         <Route path="*" element={<Navigate to={'/'} />} />
       </Routes>
