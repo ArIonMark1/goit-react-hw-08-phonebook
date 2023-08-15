@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from '../pages/Layout';
+import { RestrictedRoute } from './PublicRoute';
 
 const HomePage = lazy(() => import('../pages/HomePage'));
 const LoginPage = lazy(() => import('../pages/LoginPage'));
@@ -13,8 +14,25 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="/registration" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
+
+          <Route
+            path="/registration"
+            element={
+              <RestrictedRoute
+                redirectTo={'/'}
+                component={<RegisterPage />}
+              ></RestrictedRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute
+                redirectTo={'/'}
+                component={<LoginPage />}
+              ></RestrictedRoute>
+            }
+          />
           <Route path="/contacts" element={<ContactsPage />} />
         </Route>
         <Route

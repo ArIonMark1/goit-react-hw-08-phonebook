@@ -7,7 +7,6 @@ export const authApiSlice = createApi({
     baseUrl: 'https://connections-api.herokuapp.com',
     prepareHeaders: (headers, { getState }) => {
       const token = getState().token.token;
-      console.log(' getState: ', getState());
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }
