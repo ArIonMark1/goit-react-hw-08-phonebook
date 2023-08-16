@@ -11,8 +11,9 @@ const ContactList = () => {
     isFetching: contactsLoad,
     isError,
     error: contactsError,
-  } = useGetContactsQuery(); // тут краще працювати зі стейтом або мати на бекенді можливість брати дані по імені
+  } = useGetContactsQuery({ sikip: false, refetchOnMountOrArgChange: true }); // тут краще працювати зі стейтом або мати на бекенді можливість брати дані по імені
   //
+  console.log('User contacts: ', contacts);
   const handleFilterField = ({ currentTarget }) => {
     const filterData = currentTarget.value.toLowerCase();
     setFilter(filterData);

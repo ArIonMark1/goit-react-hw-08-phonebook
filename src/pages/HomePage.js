@@ -23,6 +23,7 @@ const styles = {
 const HomePage = () => {
   const { data, isLoading, isSuccess } = HandleUserData();
 
+  // console.log('First start: ', isUninitialized);
   if (isLoading) {
     return (
       <div style={styles.container}>

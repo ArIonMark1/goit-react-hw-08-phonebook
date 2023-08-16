@@ -1,9 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-export const authApiSlice = createApi({
+//
+const emptySplitApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    // baseUrl: 'https://api.escuelajs.co/api/v1',
     baseUrl: 'https://connections-api.herokuapp.com',
     prepareHeaders: (headers, { getState }) => {
       const token = getState().token.token;
@@ -14,6 +13,10 @@ export const authApiSlice = createApi({
     },
   }),
   tagTypes: ['authentication', 'contacts'],
+  endpoints: () => ({}),
+});
+
+export const authApiSlice = emptySplitApi.injectEndpoints({
   endpoints: builder => ({
     //
     getCurrentUser: builder.query({
@@ -45,7 +48,7 @@ export const authApiSlice = createApi({
         url: 'users/logout',
         method: 'POST',
       }),
-      invalidatesTags: ['authentication'],
+      invalidatesTags: ['authentication', 'contacts'],
     }),
     //
     getContacts: builder.query({
@@ -68,6 +71,7 @@ export const authApiSlice = createApi({
       invalidatesTags: ['contacts'],
     }),
   }),
+  overrideEisting: true,
 });
 
 export const {
