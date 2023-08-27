@@ -1,10 +1,9 @@
 export const AuthErrorMessage = statusError => {
   // ***********************************************
 
-  console.log('error status: ', statusError);
   switch (parseInt(statusError)) {
     case 400:
-      return ` ${statusError}. Wrong user data. Try again please.`;
+      return `Wrong user data. Try again please.`;
 
     case 401:
       return `Incorrect authenticate.
